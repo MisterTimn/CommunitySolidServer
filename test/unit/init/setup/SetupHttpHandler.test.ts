@@ -16,6 +16,8 @@ import { readableToString } from '../../../../src/util/StreamUtil';
 import type { TemplateEngine } from '../../../../src/util/templates/TemplateEngine';
 import { CONTENT_TYPE } from '../../../../src/util/Vocabularies';
 
+const rootPodInitializedStorageKey = 'rootInitialized';
+
 describe('A SetupHttpHandler', (): void => {
   const request: HttpRequest = {} as any;
   const response: HttpResponse = {} as any;
@@ -62,6 +64,7 @@ describe('A SetupHttpHandler', (): void => {
       storage,
       handler: interactionHandler,
       templateEngine,
+      rootPodInitializedStorageKey,
     });
   });
 

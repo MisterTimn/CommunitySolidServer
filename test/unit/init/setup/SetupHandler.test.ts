@@ -1,3 +1,4 @@
+import { BadRequestHttpError, KeyValueStorage } from '../../../../src';
 import type { Operation } from '../../../../src/http/Operation';
 import { BasicRepresentation } from '../../../../src/http/representation/BasicRepresentation';
 import type { RegistrationResponse,
@@ -7,12 +8,15 @@ import { SetupHandler } from '../../../../src/init/setup/SetupHandler';
 import { NotImplementedHttpError } from '../../../../src/util/errors/NotImplementedHttpError';
 import { readJsonStream } from '../../../../src/util/StreamUtil';
 
+const rootPodInitializedStorageKey = 'rootInitialized';
+
 describe('A SetupHandler', (): void => {
   let operation: Operation;
   let details: RegistrationResponse;
   let registrationManager: jest.Mocked<RegistrationManager>;
   let initializer: jest.Mocked<Initializer>;
   let handler: SetupHandler;
+  let storage: jest.Mocked<KeyValueStorage<string, boolean>>;
 
   beforeEach(async(): Promise<void> => {
     operation = {
@@ -38,19 +42,31 @@ describe('A SetupHandler', (): void => {
       register: jest.fn().mockResolvedValue(details),
     } as any;
 
-    handler = new SetupHandler({ registrationManager, initializer });
+    const map = new Map();
+    storage = {
+      get: jest.fn((id: string): any => map.get(id)),
+      set: jest.fn((id: string, value: any): any => map.set(id, value)),
+    } as any;
+
+    handler = new SetupHandler({ registrationManager, initializer, storage, rootPodInitializedStorageKey });
   });
 
   it('error if no Initializer is defined and initialization is requested.', async(): Promise<void> => {
-    handler = new SetupHandler({});
+    handler = new SetupHandler({ storage, rootPodInitializedStorageKey });
     operation.body = new BasicRepresentation(JSON.stringify({ initialize: true }), 'application/json');
     await expect(handler.handle({ operation })).rejects.toThrow(NotImplementedHttpError);
   });
 
   it('error if no RegistrationManager is defined and registration is requested.', async(): Promise<void> => {
-    handler = new SetupHandler({});
+    handler = new SetupHandler({ storage, rootPodInitializedStorageKey });
     operation.body = new BasicRepresentation(JSON.stringify({ registration: true }), 'application/json');
     await expect(handler.handle({ operation })).rejects.toThrow(NotImplementedHttpError);
+  });
+
+  it('error if initialization is requested, but initialization was already performed.', async(): Promise<void> => {
+    await storage.set(rootPodInitializedStorageKey, true);
+    operation.body = new BasicRepresentation(JSON.stringify({ initialize: true }), 'application/json');
+    await expect(handler.handle({ operation })).rejects.toThrow(BadRequestHttpError);
   });
 
   it('calls the Initializer when requested.', async(): Promise<void> => {

@@ -33,6 +33,10 @@ export interface SetupHttpHandlerArgs {
    * Renders the main view.
    */
   templateEngine: TemplateEngine;
+  /**
+   * Used to check if the root pod has been initialized.
+   */
+  rootPodInitializedStorageKey: string;
 }
 
 /**
@@ -53,6 +57,7 @@ export class SetupHttpHandler extends OperationHttpHandler {
   private readonly storageKey: string;
   private readonly storage: KeyValueStorage<string, boolean>;
   private readonly templateEngine: TemplateEngine;
+  private readonly rootPodInitializedStorageKey: string;
 
   public constructor(args: SetupHttpHandlerArgs) {
     super();
@@ -62,6 +67,7 @@ export class SetupHttpHandler extends OperationHttpHandler {
     this.storageKey = args.storageKey;
     this.storage = args.storage;
     this.templateEngine = args.templateEngine;
+    this.rootPodInitializedStorageKey = args.rootPodInitializedStorageKey;
   }
 
   public async handle({ operation }: OperationHttpHandlerInput): Promise<ResponseDescription> {
@@ -76,7 +82,10 @@ export class SetupHttpHandler extends OperationHttpHandler {
    * Returns the HTML representation of the setup page.
    */
   private async handleGet(operation: Operation): Promise<ResponseDescription> {
-    const result = await this.templateEngine.render({});
+    // Get the status of the root pod initialization.
+    const rootPodInitialized = await this.storage.get(this.rootPodInitializedStorageKey);
+    // Set rootPodInitialized as a render argument, so it can be used to conditionally render the relevant setup step.
+    const result = await this.templateEngine.render({ rootPodInitialized });
     const representation = new BasicRepresentation(result, operation.target, TEXT_HTML);
     return new OkResponseDescription(representation.metadata, representation.data);
   }

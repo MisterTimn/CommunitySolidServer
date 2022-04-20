@@ -17,7 +17,9 @@
         "args_handler": {
           "@type": "SetupHandler",
           "args_initializer": { "@id": "urn:solid-server:default:RootInitializer" },
-          "args_registrationManager": { "@id": "urn:solid-server:default:SetupRegistrationManager" }
+          "args_registrationManager": { "@id": "urn:solid-server:default:SetupRegistrationManager" },
+          "args_storage": { "@id": "urn:solid-server:default:SetupStorage" },
+          "args_rootPodInitializedStorageKey": "rootInitialized"
         },
         "args_converter": { "@id": "urn:solid-server:default:RepresentationConverter" },
         "args_storageKey": "setupCompleted-2.0",
@@ -38,7 +40,8 @@
               "template": "@css:templates/main.html.ejs"
             }
           ]
-        }
+        },
+        "args_rootPodInitializedStorageKey": "rootInitialized"
       }
     },
     {

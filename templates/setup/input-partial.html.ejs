@@ -29,6 +29,7 @@
           Any existing root Pod will be disabled.
         </p>
       </li>
+      <% if (!rootPodInitialized) { %>
       <li class="checkbox" id="initializeForm">
         <label>
           <input type="checkbox" id="initialize" name="initialize">
@@ -41,6 +42,7 @@
           for rapid testing and development.
         </p>
       </li>
+      <% } %>
     </ol>
   </fieldset>
 

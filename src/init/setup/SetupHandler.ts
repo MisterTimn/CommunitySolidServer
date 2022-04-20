@@ -4,7 +4,9 @@ import { BaseInteractionHandler } from '../../identity/interaction/BaseInteracti
 import type { RegistrationManager } from '../../identity/interaction/email-password/util/RegistrationManager';
 import type { InteractionHandlerInput } from '../../identity/interaction/InteractionHandler';
 import { getLoggerFor } from '../../logging/LogUtil';
+import type { KeyValueStorage } from '../../storage/keyvalue/KeyValueStorage';
 import { APPLICATION_JSON } from '../../util/ContentTypes';
+import { BadRequestHttpError } from '../../util/errors/BadRequestHttpError';
 import { NotImplementedHttpError } from '../../util/errors/NotImplementedHttpError';
 import { readJsonStream } from '../../util/StreamUtil';
 import type { Initializer } from '../Initializer';
@@ -19,6 +21,14 @@ export interface SetupHandlerArgs {
    * This Initializer should make sure the necessary resources are there so the server can work correctly.
    */
   initializer?: Initializer;
+  /**
+   * Used to store setup status.
+   */
+  storage: KeyValueStorage<string, boolean>;
+  /**
+   * Used to check if the root pod has been initialized.
+   */
+  rootPodInitializedStorageKey: string;
 }
 
 /**
@@ -29,11 +39,15 @@ export class SetupHandler extends BaseInteractionHandler {
 
   private readonly registrationManager?: RegistrationManager;
   private readonly initializer?: Initializer;
+  private readonly storage: KeyValueStorage<string, boolean>;
+  private readonly rootPodInitializedStorageKey: string;
 
   public constructor(args: SetupHandlerArgs) {
     super({});
     this.registrationManager = args.registrationManager;
     this.initializer = args.initializer;
+    this.storage = args.storage;
+    this.rootPodInitializedStorageKey = args.rootPodInitializedStorageKey;
   }
 
   protected async handlePost({ operation }: InteractionHandlerInput): Promise<Representation> {
@@ -59,6 +73,13 @@ export class SetupHandler extends BaseInteractionHandler {
    * Errors if no initializer was defined.
    */
   private async initialize(): Promise<void> {
+    // Get the status of the root pod initialization.
+    const rootPodInitialized = await this.storage.get(this.rootPodInitializedStorageKey);
+    if (rootPodInitialized) {
+      // Provide a clear error message if the root pod was already initialized.
+      throw new BadRequestHttpError('Invalid request to initialize: the public root Pod has already been initialized.');
+    }
+
     if (!this.initializer) {
       throw new NotImplementedHttpError('This server is not configured with a setup initializer.');
     }

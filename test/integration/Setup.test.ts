@@ -1,4 +1,5 @@
 import fetch from 'cross-fetch';
+import type { KeyValueStorage } from '../../src';
 import type { App } from '../../src/init/App';
 import { joinUrl } from '../../src/util/PathUtil';
 import { getPort } from '../util/Util';
@@ -6,6 +7,8 @@ import { getDefaultVariables, getTestConfigPath, instantiateFromConfig } from '.
 
 const port = getPort('SetupMemory');
 const baseUrl = `http://localhost:${port}/`;
+const exposePublicRootPodText = 'Expose a public root Pod';
+const rootPodInitializedStorageKey = 'rootInitialized';
 
 // Some tests with real Requests/Responses until the mocking library has been removed from the tests
 describe('A Solid server with setup', (): void => {
@@ -14,6 +17,7 @@ describe('A Solid server with setup', (): void => {
   const podName = 'test';
   const setupUrl = joinUrl(baseUrl, '/setup');
   let app: App;
+  let storage: KeyValueStorage<string, boolean>;
 
   // `beforeEach` since the server needs to restart to reset setup
   beforeEach(async(): Promise<void> => {
@@ -22,7 +26,7 @@ describe('A Solid server with setup', (): void => {
       getTestConfigPath('setup-memory.json'),
       getDefaultVariables(port, baseUrl),
     ) as Record<string, any>;
-    ({ app } = instances);
+    ({ app, storage } = instances);
     await app.start();
   });
 
@@ -125,4 +129,37 @@ describe('A Solid server with setup', (): void => {
     });
     expect(res.status).toBe(401);
   });
+
+  it('renders the setup option to expose a public root Pod, only if no prior initialization was completed.',
+    async(): Promise<void> => {
+      const check1 = await fetch(setupUrl, {
+        method: 'GET',
+      });
+      let bodyText = await check1.text();
+      expect(bodyText).toContain(exposePublicRootPodText);
+
+      // Simulate initialized root Pod, by setting key in setup storage
+      await storage.set(rootPodInitializedStorageKey, true);
+
+      const check2 = await fetch(setupUrl, {
+        method: 'GET',
+      });
+      bodyText = await check2.text();
+      expect(bodyText).not.toContain(exposePublicRootPodText);
+    });
+
+  it('generates a clear error message when requesting public root Pod initialization, when it was already initialized.',
+    async(): Promise<void> => {
+      // Simulate initialized root Pod, by setting key in setup storage
+      await storage.set(rootPodInitializedStorageKey, true);
+
+      const res = await fetch(setupUrl, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ initialize: true }),
+      });
+      const bodyText = await res.text();
+      expect(res.status).toBe(400);
+      expect(bodyText).toContain('Invalid request to initialize: the public root Pod has already been initialized.');
+    });
 });

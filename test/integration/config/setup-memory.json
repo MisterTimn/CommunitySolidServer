@@ -39,6 +39,10 @@
         {
           "RecordObject:_record_key": "app",
           "RecordObject:_record_value": { "@id": "urn:solid-server:default:App" }
+        },
+        {
+          "RecordObject:_record_key": "storage",
+          "RecordObject:_record_value": { "@id": "urn:solid-server:default:SetupStorage" }
         }
       ]
     }
