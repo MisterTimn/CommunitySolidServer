@@ -25,7 +25,7 @@ export class WinstonLoggerFactory implements LoggerFactory {
         format.colorize(),
         format.timestamp(),
         format.printf(({ level: levelInner, message, label: labelInner, timestamp }: Record<string, any>): string =>
-          `${timestamp} [${labelInner}] ${levelInner}: ${message}`),
+          `${timestamp} {PID-${process.pid}} [${labelInner}] ${levelInner}: ${message}`),
       ),
       transports: this.createTransports(),
     }));

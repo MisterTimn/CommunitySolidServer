@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/no-process-exit */
+import cluster from 'cluster';
 import type { WriteStream } from 'tty';
 import type { IComponentsManagerBuilderOptions } from 'componentsjs';
 import { ComponentsManager } from 'componentsjs';
@@ -9,6 +10,7 @@ import { createErrorMessage, isError } from '../util/errors/ErrorUtil';
 import { resolveModulePath, resolveAssetPath } from '../util/PathUtil';
 import type { App } from './App';
 import type { CliResolver } from './CliResolver';
+import { setupWorkers } from './ClusterManager';
 import type { CliArgv, VariableBindings } from './variables/Types';
 
 const DEFAULT_CONFIG = resolveModulePath('config/default.json');
@@ -92,6 +94,9 @@ export class AppRunner {
    */
   public async runCli(argv?: CliArgv): Promise<void> {
     const app = await this.createCli(argv);
+    if (true && cluster.isMaster) {
+      return setupWorkers();
+    }
     try {
       await app.start();
     } catch (error: unknown) {

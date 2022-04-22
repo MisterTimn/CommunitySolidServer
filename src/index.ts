@@ -214,6 +214,7 @@ export * from './init/App';
 export * from './init/AppRunner';
 export * from './init/BaseUrlVerifier';
 export * from './init/CliResolver';
+export * from './init/ClusterManager';
 export * from './init/ConfigPodInitializer';
 export * from './init/ContainerInitializer';
 export * from './init/Initializer';
