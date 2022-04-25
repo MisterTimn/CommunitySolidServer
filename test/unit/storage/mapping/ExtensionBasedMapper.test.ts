@@ -125,11 +125,16 @@ describe('An ExtensionBasedMapper', (): void => {
       });
     });
 
-    it('throws 501 if the given content-type is not recognized.', async(): Promise<void> => {
-      const result = mapper.mapUrlToFilePath({ path: `${base}test.txt` }, false, 'fake/data');
-      await expect(result).rejects.toThrow(NotImplementedHttpError);
-      await expect(result).rejects.toThrow('Unsupported content type fake/data');
-    });
+    it('falls back to application/octet-stream for unknown types (for which no custom mapping exists).',
+      async(): Promise<void> => {
+        const result = mapper.mapUrlToFilePath({ path: `${base}test` }, false, 'unknown/content-type');
+        await expect(result).resolves.toEqual({
+          identifier: { path: `${base}test` },
+          filePath: `${rootFilepath}test$.bin`,
+          contentType: 'application/octet-stream',
+          isMetadata: false,
+        });
+      });
 
     it('supports custom types.', async(): Promise<void> => {
       const customMapper = new ExtensionBasedMapper(base, rootFilepath, { cstm: 'text/custom' });

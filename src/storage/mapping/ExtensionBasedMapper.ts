@@ -1,7 +1,7 @@
 import { promises as fsPromises } from 'fs';
 import * as mime from 'mime-types';
 import type { ResourceIdentifier } from '../../http/representation/ResourceIdentifier';
-import { DEFAULT_CUSTOM_TYPES } from '../../util/ContentTypes';
+import { APPLICATION_OCTET_STREAM, DEFAULT_CUSTOM_TYPES } from '../../util/ContentTypes';
 import { NotImplementedHttpError } from '../../util/errors/NotImplementedHttpError';
 import { joinFilePath, getExtension } from '../../util/PathUtil';
 import { BaseFileIdentifierMapper } from './BaseFileIdentifierMapper';
@@ -64,10 +64,12 @@ export class ExtensionBasedMapper extends BaseFileIdentifierMapper {
     // If the extension of the identifier matches a different content-type than the one that is given,
     // we need to add a new extension to match the correct type.
     } else if (contentType !== await this.getContentTypeFromPath(filePath)) {
-      const extension: string = mime.extension(contentType) || this.customExtensions[contentType];
+      let extension: string = mime.extension(contentType) || this.customExtensions[contentType];
       if (!extension) {
-        this.logger.warn(`No extension found for ${contentType}`);
-        throw new NotImplementedHttpError(`Unsupported content type ${contentType}`);
+        // When no extension is found for the provided content-type, fall back to application/octet-stream.
+        extension = mime.extension(APPLICATION_OCTET_STREAM) as string;
+        // Signal the fall back by setting the content-type to application/octet-stream in the output link.
+        contentType = APPLICATION_OCTET_STREAM;
       }
       filePath += `$.${extension}`;
     }
