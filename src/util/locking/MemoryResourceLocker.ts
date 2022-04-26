@@ -10,7 +10,7 @@ import type { ResourceLocker } from './ResourceLocker';
  * in a memory leak if locks are never unlocked, so make sure this is covered with expiring locks for example,
  * and/or proper `finally` handles.
  */
-export class SingleThreadedResourceLocker implements ResourceLocker {
+export class MemoryResourceLocker implements ResourceLocker {
   protected readonly logger = getLoggerFor(this);
 
   private readonly locker: AsyncLock;
