@@ -1,3 +1,4 @@
+import cluster from 'cluster';
 import AsyncLock from 'async-lock';
 import type { ResourceIdentifier } from '../../http/representation/ResourceIdentifier';
 import { getLoggerFor } from '../../logging/LogUtil';
@@ -19,6 +20,10 @@ export class MemoryResourceLocker implements ResourceLocker {
   public constructor() {
     this.locker = new AsyncLock();
     this.unlockCallbacks = {};
+    if (cluster.isWorker) {
+      this.logger.warn(`MemoryResourceLocker is not thread-safe/process-safe! 
+      You should only use this locker in a single-thread/single-process CSS setup.`);
+    }
   }
 
   public async acquire(identifier: ResourceIdentifier): Promise<void> {
