@@ -11,14 +11,14 @@ cd "${0%/*}/../.." || { echo "Error setting workdir to project directory."; exit
 TEST_NAME="Deployment testing"
 declare -a CONFIG_ARRAY
 if [[ $# -gt 0 ]]; then
-    for CONFIG in "$@"; do
-      if [ ! -f "$CONFIG" ]; then
-        echo "Config file $CONFIG does not exist, check the path (example: config/default.json)"
-        exit 1
-      fi
-      CONFIG_ARRAY+=("$CONFIG")
-    done
-    echo "Deployment testing ${#CONFIG_ARRAY[@]} configs:"
+  for CONFIG in "$@"; do
+    if [ ! -f "$CONFIG" ]; then
+      echo "Config file $CONFIG does not exist, check the path (example: config/default.json)"
+      exit 1
+    fi
+    CONFIG_ARRAY+=("$CONFIG")
+  done
+  echo "Deployment testing ${#CONFIG_ARRAY[@]} configs:"
 else
   mapfile -t CONFIG_ARRAY < <(ls config/*.json)
   echo "Deployment testing all configs:"
