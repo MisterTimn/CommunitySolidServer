@@ -125,6 +125,7 @@
     "rdf-parse": "^2.0.0",
     "rdf-serialize": "^2.0.0",
     "rdf-terms": "^1.7.1",
+    "simple-git": "^2.0.0",
     "sparqlalgebrajs": "^4.0.2",
     "sparqljs": "^3.5.1",
     "url-join": "^4.0.1",
