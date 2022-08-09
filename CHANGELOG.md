@@ -1,6 +1,87 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [4.1.0](https://github.com/MisterTimn/CommunitySolidServer/compare/v4.0.0...v4.1.0) (2022-08-09)
+
+
+### Features
+
+* Accept both Settings and VariableBindings to create an App ([f609f1a](https://github.com/MisterTimn/CommunitySolidServer/commit/f609f1a9c5251b273ade785a798c1d6f8b7c29fb))
+* Add a map that can check equality between object keys ([c35cd59](https://github.com/MisterTimn/CommunitySolidServer/commit/c35cd599a38700f8c5804053a180ad943f4f9d29))
+* add a process-/thread-safe file-based ResourceLocker ([fa78bc6](https://github.com/MisterTimn/CommunitySolidServer/commit/fa78bc68567d836927731eaa9a7d7f752dadae49))
+* Add a SetMultiMap interface and implementation ([b5d5071](https://github.com/MisterTimn/CommunitySolidServer/commit/b5d5071403142cfb645c3992510bc01b3f05f399))
+* Add contains function to IdentifierStrategy ([11c0d1d](https://github.com/MisterTimn/CommunitySolidServer/commit/11c0d1d6cf2898efab80c8e3f171f92b3d3b5aaa))
+* Add find utility function for Iterables ([145758a](https://github.com/MisterTimn/CommunitySolidServer/commit/145758adbf0088ac3923b3ec3d6a713c9a467173))
+* add test phase for docker images ([0159557](https://github.com/MisterTimn/CommunitySolidServer/commit/01595577a8b9aabf618ece4c261f95fc2082023f))
+* Add utilities for Iterables ([45f8aa1](https://github.com/MisterTimn/CommunitySolidServer/commit/45f8aa157de93e7f9f4cf26727bdad9233223ed1))
+* add warning on starting the MemoryResourceLocker in a worker process ([fa78bc6](https://github.com/MisterTimn/CommunitySolidServer/commit/fa78bc68567d836927731eaa9a7d7f752dadae49))
+* Allow switching accounts ([3fea5c9](https://github.com/MisterTimn/CommunitySolidServer/commit/3fea5c98f5eef181bac7283943f2b35474821b17))
+* args as env vars ([a461586](https://github.com/MisterTimn/CommunitySolidServer/commit/a46158692178d30975f3a91a9ce2bbdbc4f5882f))
+* build versioned documentation site form CI pipeline ([027c803](https://github.com/MisterTimn/CommunitySolidServer/commit/027c803b33ff2309d09c1cc908b971c8ae785a43))
+* Change permission interface to store identifiers ([23f0b37](https://github.com/MisterTimn/CommunitySolidServer/commit/23f0b37c2840035a436e0d140649bcb96e68c94e))
+* Edit metadata resources ([#1188](https://github.com/MisterTimn/CommunitySolidServer/issues/1188)) ([ca62511](https://github.com/MisterTimn/CommunitySolidServer/commit/ca62511d12c1190e046c6608692784082323a161))
+* Enable strict parsing of CLI arguments ([4e999eb](https://github.com/MisterTimn/CommunitySolidServer/commit/4e999eba98920cb82e64091646eb61a8abf63213))
+* Extend OIDC error descriptions ([3f817b1](https://github.com/MisterTimn/CommunitySolidServer/commit/3f817b14b0b7ee626d3f4e6922955392c00f8be2))
+* file-based backend fallback for unknown media types ([ff80079](https://github.com/MisterTimn/CommunitySolidServer/commit/ff80079000a0f308f31b83cfc52e90421f20dadc))
+* initial proposal for multithreaded execution ([236bbc6](https://github.com/MisterTimn/CommunitySolidServer/commit/236bbc6e5d02e42016290812318c1d62179cb6e1))
+* Introduce ModesExtractor for intermediate containers ([18391ec](https://github.com/MisterTimn/CommunitySolidServer/commit/18391ec414df7b78185e2670327abfa06f3c285d))
+* Parse Accept headers as early as possible ([df08259](https://github.com/MisterTimn/CommunitySolidServer/commit/df0825936afd211fe51cdc2ff2034b4ca34234b3))
+* regexRoutes stored as ordered array ([5399e75](https://github.com/MisterTimn/CommunitySolidServer/commit/5399e75ae4917f88b0909bf04849d51039ab5189))
+* Respect root path for static assets and HTML links ([2814e72](https://github.com/MisterTimn/CommunitySolidServer/commit/2814e72b348212cb3f49e0eb1e6bcb69cf67c1a8))
+* Rework ResourceStore to return extra info ([e0954cf](https://github.com/MisterTimn/CommunitySolidServer/commit/e0954cf2a79cd9bb97dfc305afc1bd6782f0f59b))
+* reworked tryfn ([fa78bc6](https://github.com/MisterTimn/CommunitySolidServer/commit/fa78bc68567d836927731eaa9a7d7f752dadae49))
+* Split WebAclReader behaviour over multiple classes ([7996fe5](https://github.com/MisterTimn/CommunitySolidServer/commit/7996fe5c3b6d05f3307f92f2ac2401d9c8ead408))
+* store all locks inside a single lock folder ([fa78bc6](https://github.com/MisterTimn/CommunitySolidServer/commit/fa78bc68567d836927731eaa9a7d7f752dadae49))
+* store turtle prefixes in metadata when parsing ([66e82dd](https://github.com/MisterTimn/CommunitySolidServer/commit/66e82dd772c6d6ff6eb4bf1f3e50c50a7ec3172d))
+* update all file-based backend configs to use the new FileSystemResourceLocker ([fa78bc6](https://github.com/MisterTimn/CommunitySolidServer/commit/fa78bc68567d836927731eaa9a7d7f752dadae49))
+* Update configs based on all permission changes ([d5bcec7](https://github.com/MisterTimn/CommunitySolidServer/commit/d5bcec704cc00a240634e3860e998f2bd861cf12))
+* Update ModesExtractors to support new permission interface ([7085252](https://github.com/MisterTimn/CommunitySolidServer/commit/7085252b3f22a856ffb6a257aa8d1b8f64c7163b))
+* Update PermissionReaders to support new permission interface ([0ff05fd](https://github.com/MisterTimn/CommunitySolidServer/commit/0ff05fd420f869e187743163a2bce746100116f1))
+* Update WebAclMetadataCollector to support new permission interface ([fd83f4b](https://github.com/MisterTimn/CommunitySolidServer/commit/fd83f4b013fa4e1572ae6357971dc05bf9e57149))
+* Use an IdentifierMap for ResourceStore responses ([9a12152](https://github.com/MisterTimn/CommunitySolidServer/commit/9a121522537327e0872a98189cecb250691de210))
+* use md5 hashing for filepath hashes ([fa78bc6](https://github.com/MisterTimn/CommunitySolidServer/commit/fa78bc68567d836927731eaa9a7d7f752dadae49))
+
+
+### Bug Fixes
+
+* %2F not handled correctly in file backend [#1184](https://github.com/MisterTimn/CommunitySolidServer/issues/1184) ([dbdb9b4](https://github.com/MisterTimn/CommunitySolidServer/commit/dbdb9b424e4c4f68c19c66396064486bff93a7e4))
+* Accept client WebIDs with a context array ([d290848](https://github.com/MisterTimn/CommunitySolidServer/commit/d2908480960b9708460ad71c010ea11e86497968))
+* Always define [@type](https://github.com/type) in configs ([cfdd122](https://github.com/MisterTimn/CommunitySolidServer/commit/cfdd1221f05f2b51abc770e64407bb8392224383))
+* Change YargsCliExtractor structure to avoid Components.js issues ([6f4e70d](https://github.com/MisterTimn/CommunitySolidServer/commit/6f4e70dbb928a9cb64e83a71954ea607a0bdb1a0))
+* **deps:** Fix missing dependency from package-lock.json ([f2c9c0c](https://github.com/MisterTimn/CommunitySolidServer/commit/f2c9c0cb78fa89d018409f4eae51329289be795e))
+* **deps:** Update to Comunica v2 ([1de1f7c](https://github.com/MisterTimn/CommunitySolidServer/commit/1de1f7c12a8ae3f89fd91e9cb33af0405af7d995))
+* Enable ACL in default quota config ([26b42f0](https://github.com/MisterTimn/CommunitySolidServer/commit/26b42f0b175293e266bd404a1dbe206d21154690))
+* finalizer of file.json was configured wrong ([fa78bc6](https://github.com/MisterTimn/CommunitySolidServer/commit/fa78bc68567d836927731eaa9a7d7f752dadae49))
+* Fix typing issues with latest Components.js generator ([0e32d9a](https://github.com/MisterTimn/CommunitySolidServer/commit/0e32d9ad9b3e8558c32bf7263e33af157b88a6a1))
+* Improve HTTP stream error messages ([93a141d](https://github.com/MisterTimn/CommunitySolidServer/commit/93a141dd6160c0f55839dfec1312b9f085569bcd))
+* Introducing initializers for handling lock cleanup on start ([1c65b06](https://github.com/MisterTimn/CommunitySolidServer/commit/1c65b06392da60ad5178c7db86c1bd4d6d83f800))
+* logging component logs as coming from a worker ([c89cc4b](https://github.com/MisterTimn/CommunitySolidServer/commit/c89cc4b395170e14759bebca2627d3a7830dcea3))
+* Make capitalization in RELEASE_NOTES consistent ([bc088f4](https://github.com/MisterTimn/CommunitySolidServer/commit/bc088f494dfe9254c80e7ca875c3e1ffa94eb1d4))
+* Make delimiter encoding case-insensitive. ([50469e2](https://github.com/MisterTimn/CommunitySolidServer/commit/50469e2c1f3d9c808062fde96d2ce62d5e85475e))
+* not quiting loop when releasing unexisting lock ([fa78bc6](https://github.com/MisterTimn/CommunitySolidServer/commit/fa78bc68567d836927731eaa9a7d7f752dadae49))
+* Prevent FileSystemResourceLocker from writing to ./ ([a99616a](https://github.com/MisterTimn/CommunitySolidServer/commit/a99616acf24ca28c904ca0f42f6793b0d7d42002))
+* prevent JsonResourceStorage from generating too long filenames ([13dbcb6](https://github.com/MisterTimn/CommunitySolidServer/commit/13dbcb662b84ce926fcae832a16da47305e370f4))
+* rdf convertors should not read or write plain JSON ([9ecb769](https://github.com/MisterTimn/CommunitySolidServer/commit/9ecb769e092cfb4cb08b514477f320956a4b302c))
+* redislocker test ([dee08eb](https://github.com/MisterTimn/CommunitySolidServer/commit/dee08ebd89de4f66eb2367371fa614cfb189acc0))
+* Remove MS-Author-Via header ([21b2850](https://github.com/MisterTimn/CommunitySolidServer/commit/21b285069646fd4e34d990a3ea18fcdc4a8cca44))
+* remove workaround for cli parameters being turned into string ([a99db00](https://github.com/MisterTimn/CommunitySolidServer/commit/a99db00fb2bc9926d911fa3859141984a1994442))
+* return contenttype header value string with parameters ([311f875](https://github.com/MisterTimn/CommunitySolidServer/commit/311f8756ec8ea74ab85fdcff09ac435364ca602d))
+* revert 50dfea1 ([5989a1f](https://github.com/MisterTimn/CommunitySolidServer/commit/5989a1fdc572f4ef52ada908b5ceab9f4c2dffd5))
+* revert ef6f01a ([afed963](https://github.com/MisterTimn/CommunitySolidServer/commit/afed963a239c27033d94d4b779ad5848f446e16a))
+* revert ef6f01a ([5989a1f](https://github.com/MisterTimn/CommunitySolidServer/commit/5989a1fdc572f4ef52ada908b5ceab9f4c2dffd5))
+* Rewrite request with a root path to OIDC Provider ([0a84230](https://github.com/MisterTimn/CommunitySolidServer/commit/0a84230307d72e1afa30386ff9dda160a9ca98d4))
+* Stop creating meta files for each new resource [#1217](https://github.com/MisterTimn/CommunitySolidServer/issues/1217) ([fbbccb0](https://github.com/MisterTimn/CommunitySolidServer/commit/fbbccb0cf1f7980c008ecc06cabccb8c08b48b5f))
+* store locks in proper .internal/locks folder ([fa78bc6](https://github.com/MisterTimn/CommunitySolidServer/commit/fa78bc68567d836927731eaa9a7d7f752dadae49))
+* Update MashLib URL in pod README ([16cff45](https://github.com/MisterTimn/CommunitySolidServer/commit/16cff451100e74fb3e66893503a796dfdab5b673))
+* Update prefixes in all configs ([ce27bec](https://github.com/MisterTimn/CommunitySolidServer/commit/ce27bec207652f0bd37beb23301f864464751438))
+* Update the default timeout to 6s ([839a923](https://github.com/MisterTimn/CommunitySolidServer/commit/839a923df64b3556ea339cc20b2fa336245ea7d3))
+* Use encrypted field to check for TLS. ([82f9070](https://github.com/MisterTimn/CommunitySolidServer/commit/82f90709a656b0d996118d2e869b6b4a2c8a2e5d))
+
+
+### Performance Improvements
+
+* small improvement to dockerfile building and switching maintainer ([dacd6d0](https://github.com/MisterTimn/CommunitySolidServer/commit/dacd6d00067de7f0dc1cb2ea65a8ab686004c433))
+
 ## [5.0.0](https://github.com/CommunitySolidServer/CommunitySolidServer/compare/v4.0.1...v5.0.0) (2022-08-08)
 
 ### Features
