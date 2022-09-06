@@ -22,6 +22,7 @@ export class AllStaticReader extends PermissionReader {
     });
   }
 
+  // Additional triggers
   public async handle({ credentials, requestedModes }: PermissionReaderInput): Promise<PermissionMap> {
     const availablePermissions = new IdentifierMap<PermissionSet>();
     const permissions = this.createPermissions(credentials);
