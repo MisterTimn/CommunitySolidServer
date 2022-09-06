@@ -16,6 +16,8 @@ import type { PermissionMap } from './permissions/Permissions';
 
 /**
  * Allows control access if the request is being made by the owner of the pod containing the resource.
+ *
+ * Please trigger a new run
  */
 export class OwnerPermissionReader extends PermissionReader {
   protected readonly logger = getLoggerFor(this);
