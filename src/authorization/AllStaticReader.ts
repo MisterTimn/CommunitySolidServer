@@ -12,6 +12,7 @@ export class AllStaticReader extends PermissionReader {
   private readonly permissions: Permission;
 
   // A triggering comment change 1
+  // More comments
   public constructor(allow: boolean) {
     super();
     this.permissions = Object.freeze({
